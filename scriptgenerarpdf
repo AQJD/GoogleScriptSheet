@@ -1,0 +1,163 @@
+function generarPDF() {
+  //Identificaciones
+  var plantillaID="1YqRUGMAL24n5Jjb__S4ugluqdu6nEQcpuAHZNaybmLc";
+  var pdfID = "19e0b_rDJJbyA1V2Z5PiuZfHaGRkxA03a";
+  var TemportalID = "182V9Ff5QD_55fVlR7a2mX3NZloSWoG5f";
+
+  var colcodigo = 1;
+  var colfecha = 2;
+  var colaentrega = 3;
+  var colqentrega = 4;
+  var colarecibe = 5;
+  var colqrecibe = 6;
+  var colcargo=7;
+  var colasunto = 8;
+  var colmundes = 9;
+  var colsededes = 10;
+  var colequipo1 = 15;
+  var colmarca1 = 16;
+  var colreferencia1 = 17;
+  var colserial1 = 18;
+  var colobser1 = 19;
+  var colequipo2 = 20;
+  var colmarca2 = 21;
+  var colreferencia2 = 22;
+  var colserial2 = 23;
+  var colobser2 = 24;
+  var colequipo3 = 25;
+  var colmarca3 = 26;
+  var colreferencia3 = 27;
+  var colserial3 = 28;
+  var colobser3 = 29;
+  var colequipo4 = 30;
+  var colmarca4 = 31;
+  var colreferencia4 = 32;
+  var colserial4 = 33;
+  var colobser4 = 34;
+  var colequipo5 = 35;
+  var colmarca5 = 36;
+  var colreferencia5 = 37;
+  var colserial5 = 38;
+  var colobser5 = 39;
+ // var colenvio = 3;
+//conexiones
+var doc = DocumentApp.openById(plantillaID);
+var archivoplantilla = DriveApp.getFileById(plantillaID);
+var carpetaPDF = DriveApp.getFolderById(pdfID);
+var carpetatemporal = DriveApp.getFolderById(TemportalID);
+var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("datos");
+
+
+
+//variables
+var filaactiva = SpreadsheetApp.getActiveRange().getRow();
+var codigo = hoja.getRange(filaactiva,colcodigo).getValue();
+var fecha = hoja.getRange(filaactiva,colfecha).getDisplayValue();
+var aentrega = hoja.getRange(filaactiva,colaentrega).getValue();
+var qentrega = hoja.getRange(filaactiva,colqentrega).getValue();
+var arecibe = hoja.getRange(filaactiva,colarecibe).getValue();
+var qrecibe = hoja.getRange(filaactiva,colqrecibe).getValue();
+var cargorecibe = hoja.getRange(filaactiva,colcargo).getValue();
+var asunto = hoja.getRange(filaactiva,colasunto).getValue();
+var mundes = hoja.getRange(filaactiva,colmundes).getValue();
+var sededes = hoja.getRange(filaactiva,colsededes).getValue();
+var equipo1 = hoja.getRange(filaactiva,colequipo1).getValue();
+var marca1 = hoja.getRange(filaactiva,colmarca1).getValue();
+var referencia1 = hoja.getRange(filaactiva,colreferencia1).getValue();
+var serial1 = hoja.getRange(filaactiva,colserial1).getValue();
+var obser1 = hoja.getRange(filaactiva,colobser1).getValue();
+var equipo2 = hoja.getRange(filaactiva,colequipo2).getValue();
+var marca2 = hoja.getRange(filaactiva,colmarca2).getValue();
+var referencia2 = hoja.getRange(filaactiva,colreferencia2).getValue();
+var serial2 = hoja.getRange(filaactiva,colserial2).getValue();
+var obser2 = hoja.getRange(filaactiva,colobser2).getValue();
+var equipo3 = hoja.getRange(filaactiva,colequipo3).getValue();
+var marca3 = hoja.getRange(filaactiva,colmarca3).getValue();
+var referencia3 = hoja.getRange(filaactiva,colreferencia3).getValue();
+var serial3 = hoja.getRange(filaactiva,colserial3).getValue();
+var obser3 = hoja.getRange(filaactiva,colobser3).getValue();
+var equipo4 = hoja.getRange(filaactiva,colequipo4).getValue();
+var marca4 = hoja.getRange(filaactiva,colmarca4).getValue();
+var referencia4 = hoja.getRange(filaactiva,colreferencia4).getValue();
+var serial4 = hoja.getRange(filaactiva,colserial4).getValue();
+var obser4 = hoja.getRange(filaactiva,colobser4).getValue();
+var equipo5 = hoja.getRange(filaactiva,colequipo5).getValue();
+var marca5 = hoja.getRange(filaactiva,colmarca5).getValue();
+var referencia5 = hoja.getRange(filaactiva,colreferencia5).getValue();
+var serial5 = hoja.getRange(filaactiva,colserial5).getValue();
+var obser5 = hoja.getRange(filaactiva,colobser5).getValue();
+
+//var envio = hoja.getRange(filaactiva,colenvio);
+
+//crear copia
+
+var copiaarchivoplantilla = archivoplantilla.makeCopy(carpetatemporal);
+var copiaID = copiaarchivoplantilla.getId();
+var nombredocumento="Formato Salida "+codigo;
+copiaarchivoplantilla.setName(nombredocumento);
+var doc = DocumentApp.openById(copiaID);
+doc.setName(nombredocumento);
+
+
+doc.getBody().replaceText("{{fecha}}",fecha);
+doc.getBody().replaceText("{{Area Quien Entrega}}",aentrega);
+doc.getBody().replaceText("{{Quien Entrega}}",qentrega);
+doc.getBody().replaceText("{{Area Quien Recibe}}",arecibe);
+doc.getBody().replaceText("{{Quien Recibe}}",qrecibe);
+doc.getBody().replaceText("{{Cargo Quien Recibe}}",cargorecibe);
+doc.getBody().replaceText("{{Tipo envio}}",asunto);
+doc.getBody().replaceText("{{Municipio Destino}}",mundes);
+doc.getBody().replaceText("{{Sede Destino}}",sededes);
+doc.getBody().replaceText("{{Equipo 1}}",equipo1);
+doc.getBody().replaceText("{{Equipo 2}}",equipo2);
+doc.getBody().replaceText("{{Equipo 3}}",equipo3);
+doc.getBody().replaceText("{{Equipo 4}}",equipo4);
+doc.getBody().replaceText("{{Equipo 5}}",equipo5);
+doc.getBody().replaceText("{{Marca 1}}",marca1);
+doc.getBody().replaceText("{{Marca 2}}",marca2);
+doc.getBody().replaceText("{{Marca 3}}",marca3);
+doc.getBody().replaceText("{{Marca 4}}",marca4);
+doc.getBody().replaceText("{{Marca 5}}",marca5);
+doc.getBody().replaceText("{{Referencia 1}}",referencia1);
+doc.getBody().replaceText("{{Referencia 2}}",referencia2);
+doc.getBody().replaceText("{{Referencia 3}}",referencia3);
+doc.getBody().replaceText("{{Referencia 4}}",referencia4);
+doc.getBody().replaceText("{{Referencia 5}}",referencia5);
+doc.getBody().replaceText("{{Serial 1}}",serial1);
+doc.getBody().replaceText("{{Serial 2}}",serial2);
+doc.getBody().replaceText("{{Serial 3}}",serial3);
+doc.getBody().replaceText("{{Serial 4}}",serial4);
+doc.getBody().replaceText("{{Serial 5}}",serial5);
+doc.getBody().replaceText("{{Observacion 1}}",obser1);
+doc.getBody().replaceText("{{Observacion 2}}",obser2);
+doc.getBody().replaceText("{{Observacion 3}}",obser3);
+doc.getBody().replaceText("{{Observacion 4}}",obser4);
+doc.getBody().replaceText("{{Observacion 5}}",obser5);
+
+doc.saveAndClose();
+
+const pdfBlob = copiaarchivoplantilla.getAs(MimeType.PDF);
+carpetaPDF.createFile(pdfBlob);
+}
+
+function onOpen(e) {
+  // Add a custom menu to the spreadsheet.
+  SpreadsheetApp.getUi() // Or DocumentApp, SlidesApp, or FormApp.
+      .createMenu('PDF')
+      .addItem('Generar Salida', "generarPDF")
+      .addToUi();
+}
+
+/*
+function OnOpen(e){
+  crearmenu();
+}
+
+function crearmenu(e){
+  var menu = SpreadsheetApp.getUi().createMenu("Mis Funciones");
+  //menu.addItem("numero1","generarPDF");
+  //menu.addToUi();
+  menu.createMenu('PDF')
+  menu.addItem('First item', 'menuItem1')
+  menu.addToUi();
+}*/
